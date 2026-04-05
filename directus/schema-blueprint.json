@@ -1,0 +1,242 @@
+{
+  "project": "industrial-official-website",
+  "cms": "directus",
+  "localeStrategy": "dual-fields",
+  "locales": ["zh", "en"],
+  "collections": [
+    {
+      "name": "pages",
+      "primaryKey": "id",
+      "fields": [
+        "page_key",
+        "title_zh",
+        "title_en",
+        "subtitle_zh",
+        "subtitle_en",
+        "content_zh",
+        "content_en",
+        "slug_zh",
+        "slug_en",
+        "seo_title_zh",
+        "seo_title_en",
+        "seo_description_zh",
+        "seo_description_en",
+        "status",
+        "sort_order"
+      ]
+    },
+    {
+      "name": "products",
+      "primaryKey": "id",
+      "fields": [
+        "product_code",
+        "name_zh",
+        "name_en",
+        "summary_zh",
+        "summary_en",
+        "description_zh",
+        "description_en",
+        "features_zh",
+        "features_en",
+        "applications_zh",
+        "applications_en",
+        "material",
+        "specification",
+        "slug_zh",
+        "slug_en",
+        "seo_title_zh",
+        "seo_title_en",
+        "seo_description_zh",
+        "seo_description_en",
+        "cover_image",
+        "gallery",
+        "category_level_1",
+        "category_level_2",
+        "industries",
+        "related_cases",
+        "related_products",
+        "downloads",
+        "certifications",
+        "is_featured",
+        "is_new",
+        "is_hot",
+        "status",
+        "sort_order"
+      ]
+    },
+    {
+      "name": "product_categories",
+      "primaryKey": "id",
+      "fields": [
+        "name_zh",
+        "name_en",
+        "description_zh",
+        "description_en",
+        "parent_id",
+        "slug_zh",
+        "slug_en",
+        "status",
+        "sort_order"
+      ]
+    },
+    {
+      "name": "industries",
+      "primaryKey": "id",
+      "fields": [
+        "name_zh",
+        "name_en",
+        "summary_zh",
+        "summary_en",
+        "pain_points_zh",
+        "pain_points_en",
+        "solution_content_zh",
+        "solution_content_en",
+        "slug_zh",
+        "slug_en",
+        "status",
+        "sort_order"
+      ]
+    },
+    {
+      "name": "case_studies",
+      "primaryKey": "id",
+      "fields": [
+        "title_zh",
+        "title_en",
+        "summary_zh",
+        "summary_en",
+        "background_zh",
+        "background_en",
+        "solution_zh",
+        "solution_en",
+        "result_zh",
+        "result_en",
+        "country_id",
+        "industry_id",
+        "products",
+        "slug_zh",
+        "slug_en",
+        "status",
+        "sort_order"
+      ]
+    },
+    {
+      "name": "blog_posts",
+      "primaryKey": "id",
+      "fields": [
+        "title_zh",
+        "title_en",
+        "excerpt_zh",
+        "excerpt_en",
+        "content_zh",
+        "content_en",
+        "category_id",
+        "slug_zh",
+        "slug_en",
+        "published_at",
+        "status",
+        "is_featured"
+      ]
+    },
+    {
+      "name": "blog_categories",
+      "primaryKey": "id",
+      "fields": [
+        "name_zh",
+        "name_en",
+        "slug_zh",
+        "slug_en",
+        "status",
+        "sort_order"
+      ]
+    },
+    {
+      "name": "downloads",
+      "primaryKey": "id",
+      "fields": [
+        "title_zh",
+        "title_en",
+        "description_zh",
+        "description_en",
+        "file",
+        "file_type",
+        "download_category",
+        "status",
+        "sort_order"
+      ]
+    },
+    {
+      "name": "certifications",
+      "primaryKey": "id",
+      "fields": [
+        "title_zh",
+        "title_en",
+        "description_zh",
+        "description_en",
+        "certificate_type",
+        "issued_by",
+        "valid_until",
+        "file",
+        "image",
+        "status",
+        "sort_order"
+      ]
+    },
+    {
+      "name": "inquiries",
+      "primaryKey": "id",
+      "fields": [
+        "name",
+        "company_name",
+        "country",
+        "email",
+        "phone",
+        "whatsapp",
+        "product_name",
+        "quantity",
+        "spec_requirements",
+        "message",
+        "attachment",
+        "source_page",
+        "source_language",
+        "status",
+        "assigned_to",
+        "created_at"
+      ]
+    },
+    {
+      "name": "site_settings",
+      "singleton": true,
+      "fields": [
+        "site_name_zh",
+        "site_name_en",
+        "company_name_zh",
+        "company_name_en",
+        "logo",
+        "favicon",
+        "email",
+        "phone",
+        "whatsapp",
+        "wechat",
+        "address_zh",
+        "address_en",
+        "default_seo_title_zh",
+        "default_seo_title_en",
+        "default_seo_description_zh",
+        "default_seo_description_en",
+        "social_links"
+      ]
+    }
+  ],
+  "relations": [
+    { "from": "products", "field": "category_level_1", "to": "product_categories", "type": "many-to-one" },
+    { "from": "products", "field": "category_level_2", "to": "product_categories", "type": "many-to-one" },
+    { "from": "products", "field": "industries", "to": "industries", "type": "many-to-many" },
+    { "from": "products", "field": "related_cases", "to": "case_studies", "type": "many-to-many" },
+    { "from": "products", "field": "downloads", "to": "downloads", "type": "many-to-many" },
+    { "from": "products", "field": "certifications", "to": "certifications", "type": "many-to-many" },
+    { "from": "case_studies", "field": "country_id", "to": "countries", "type": "many-to-one" },
+    { "from": "case_studies", "field": "industry_id", "to": "industries", "type": "many-to-one" },
+    { "from": "blog_posts", "field": "category_id", "to": "blog_categories", "type": "many-to-one" }
+  ]
+}

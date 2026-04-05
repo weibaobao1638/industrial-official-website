@@ -1,0 +1,21 @@
+services:
+  directus:
+    image: directus/directus:11.5.1
+    container_name: industrial-official-directus
+    ports:
+      - "8055:8055"
+    volumes:
+      - ./database:/directus/database
+      - ./uploads:/directus/uploads
+      - ./extensions:/directus/extensions
+      - ./scripts:/workspace/scripts
+      - ./schema-blueprint.json:/workspace/schema-blueprint.json:ro
+    environment:
+      KEY: ${KEY}
+      SECRET: ${SECRET}
+      TELEMETRY: "false"
+      ADMIN_EMAIL: ${ADMIN_EMAIL}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD}
+      ADMIN_TOKEN: ${ADMIN_TOKEN}
+      DB_CLIENT: "sqlite3"
+      DB_FILENAME: "/directus/database/data.db"
