@@ -2,6 +2,7 @@ services:
   directus:
     image: directus/directus:11.5.1
     container_name: industrial-official-directus
+    restart: unless-stopped
     ports:
       - "8055:8055"
     volumes:

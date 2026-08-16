@@ -11,6 +11,8 @@ type RequestOptions = {
   path: string;
   params?: Record<string, QueryValue>;
   tags?: string[];
+  cache?: RequestCache;
+  revalidate?: number | false;
 };
 
 type MutateOptions<T> = {
@@ -56,7 +58,7 @@ function buildUrl(path: string, params?: Record<string, QueryValue>) {
   return url;
 }
 
-export async function directusRequest<T>({ path, params, tags }: RequestOptions): Promise<T | null> {
+export async function directusRequest<T>({ path, params, tags, cache, revalidate }: RequestOptions): Promise<T | null> {
   const url = buildUrl(path, params);
 
   if (!url) {
@@ -68,7 +70,12 @@ export async function directusRequest<T>({ path, params, tags }: RequestOptions)
       'Content-Type': 'application/json',
       ...(DIRECTUS_TOKEN ? { Authorization: `Bearer ${DIRECTUS_TOKEN}` } : {}),
     },
-    next: tags ? { tags } : undefined,
+    cache,
+    next: cache === 'no-store'
+      ? undefined
+      : (tags || revalidate !== undefined)
+        ? { ...(tags ? { tags } : {}), ...(revalidate !== undefined ? { revalidate } : {}) }
+        : undefined,
   });
 
   if (!response.ok) {

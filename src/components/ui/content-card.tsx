@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 
 type ContentCardProps = {
@@ -5,6 +6,8 @@ type ContentCardProps = {
   title: string;
   description: string;
   imageUrl?: string | null;
+  imageSizes?: string;
+  imageVariant?: 'default' | 'product';
   href?: string;
   ctaLabel?: string;
   meta?: string;
@@ -12,15 +15,40 @@ type ContentCardProps = {
   external?: boolean;
 };
 
-export function ContentCard({ eyebrow, title, description, imageUrl, href, ctaLabel, meta, badges, external }: ContentCardProps) {
+export function ContentCard({
+  eyebrow,
+  title,
+  description,
+  imageUrl,
+  imageSizes = '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw',
+  imageVariant = 'default',
+  href,
+  ctaLabel,
+  meta,
+  badges,
+  external,
+}: ContentCardProps) {
+  const image = imageUrl ? (
+    <div className={`content-card__image${imageVariant === 'product' ? ' content-card__image--product' : ''}`}>
+      <Image src={imageUrl} alt={title} fill sizes={imageSizes} />
+    </div>
+  ) : null;
+
   return (
     <article className="card content-card">
-      {imageUrl ? (
-        <div className="content-card__image">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={imageUrl} alt={title} />
-        </div>
-      ) : null}
+      {href && image ? (
+        external ? (
+          <a className="content-card__image-link" href={href} target="_blank" rel="noreferrer" aria-label={title}>
+            {image}
+          </a>
+        ) : (
+          <Link className="content-card__image-link" href={href} aria-label={title}>
+            {image}
+          </Link>
+        )
+      ) : (
+        image
+      )}
       {eyebrow ? <div className="eyebrow">{eyebrow}</div> : null}
       <h3 className="h3">{title}</h3>
       {badges?.length ? (

@@ -1,9 +1,12 @@
+import Image from 'next/image';
 import Link from 'next/link';
+import { HomeBannerCarousel } from '@/components/home/home-banner-carousel';
 import { HeroSection } from '@/components/home/hero-section';
 import { RichText } from '@/components/ui/rich-text';
 import { ContentCard } from '@/components/ui/content-card';
 import { Section } from '@/components/ui/section';
-import { getFeaturedProducts } from '@/features/products/api';
+import { getHomeBanners } from '@/features/home-banners/api';
+import { buildLocalizedProductDetailPath, getFeaturedProducts } from '@/features/products/api';
 import { getIndustries } from '@/features/industries/api';
 import { getCaseList } from '@/features/cases/api';
 import { getBlogPosts } from '@/features/blog/api';
@@ -55,7 +58,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           insights: 'Insights',
         };
   const settings = await getSiteSettings(locale);
-  const [products, industries, cases, posts, stats, certifications, downloads, homePage] = await Promise.all([
+  const [products, industries, cases, posts, stats, certifications, downloads, homePage, homeBanners] = await Promise.all([
     getFeaturedProducts(locale),
     getIndustries(locale),
     getCaseList(locale),
@@ -64,10 +67,12 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
     getCertifications(locale),
     getDownloads(locale),
     getPageContent(locale, 'home'),
+    getHomeBanners(locale),
   ]);
 
   return (
     <>
+      <HomeBannerCarousel items={homeBanners} locale={locale} />
       <HeroSection locale={locale} page={homePage} />
 
       {homePage?.content ? (
@@ -83,8 +88,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             <div className="card stack-md">
               {settings.logoUrl ? (
                 <div className="company-logo-panel">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={settings.logoUrl} alt={settings.siteName} />
+                  <Image src={settings.logoUrl} alt={settings.siteName} fill sizes="160px" />
                 </div>
               ) : null}
               <h3 className="h3">{settings.companyName || settings.siteName}</h3>
@@ -125,8 +129,9 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
               title={product.name}
               description={product.summary}
               imageUrl={product.imageUrl}
+              imageVariant="product"
               badges={product.productCode ? [product.productCode] : undefined}
-              href={`/${locale}/products/${product.category}/${product.slug}`}
+              href={buildLocalizedProductDetailPath(locale, product)}
               ctaLabel={dict.common.learnMore}
             />
           ))}

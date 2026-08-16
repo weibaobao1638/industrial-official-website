@@ -61,6 +61,7 @@ async function ensureRelation(collection, field) {
 }
 
 for (const [collection, field] of [
+  ['home_banners', 'image'],
   ['products', 'cover_image'],
   ['downloads', 'file'],
   ['certifications', 'file'],

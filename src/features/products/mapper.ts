@@ -6,6 +6,8 @@ export function mapProductCard(input: Partial<ProductCard>): ProductCard {
     productCode: input.productCode,
     category: input.category ?? 'general',
     categoryLabel: input.categoryLabel,
+    subcategory: input.subcategory,
+    subcategoryLabel: input.subcategoryLabel,
     slug: input.slug ?? 'product-detail',
     name: input.name ?? 'Industrial Product',
     summary: input.summary ?? 'Structured product summary for industrial applications.',

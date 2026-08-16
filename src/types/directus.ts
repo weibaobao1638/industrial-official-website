@@ -2,10 +2,28 @@ export type DirectusAssetRef = {
   id?: string;
 };
 
+export type DirectusProductCategoryRef = {
+  id?: string | number;
+  slug_en?: string;
+  slug_zh?: string;
+  name_en?: string;
+  name_zh?: string;
+  parent_id?: string | number | DirectusProductCategoryRef | null;
+};
+
+export type DirectusProductCategoryItem = DirectusProductCategoryRef & {
+  id: string | number;
+  description_zh?: string;
+  description_en?: string;
+  status?: string;
+  sort_order?: number;
+};
+
 export type DirectusProductItem = {
   id: string | number;
   product_code?: string;
-  category_level_1?: string | { id?: string | number; slug_en?: string; slug_zh?: string; name_en?: string; name_zh?: string };
+  category_level_1?: string | DirectusProductCategoryRef;
+  category_level_2?: string | DirectusProductCategoryRef;
   slug_en?: string;
   slug_zh?: string;
   name_zh?: string;
@@ -81,6 +99,15 @@ export type DirectusPageItem = {
   slug_zh?: string;
   slug_en?: string;
   status?: string;
+};
+
+export type DirectusHomeBannerItem = {
+  id: string | number;
+  title_zh?: string;
+  title_en?: string;
+  image?: { id?: string } | string | null;
+  status?: string;
+  sort_order?: number;
 };
 
 export type DirectusDownloadItem = {

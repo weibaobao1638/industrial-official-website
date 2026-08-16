@@ -26,6 +26,15 @@
       ]
     },
     {
+      "name": "home_banners",
+      "primaryKey": "id",
+      "fields": [
+        "image",
+        "status",
+        "sort_order"
+      ]
+    },
+    {
       "name": "products",
       "primaryKey": "id",
       "fields": [
@@ -229,6 +238,7 @@
     }
   ],
   "relations": [
+    { "from": "product_categories", "field": "parent_id", "to": "product_categories", "type": "many-to-one" },
     { "from": "products", "field": "category_level_1", "to": "product_categories", "type": "many-to-one" },
     { "from": "products", "field": "category_level_2", "to": "product_categories", "type": "many-to-one" },
     { "from": "products", "field": "industries", "to": "industries", "type": "many-to-many" },

@@ -9,6 +9,11 @@ const nextConfig: NextConfig = {
         port: '8055',
         pathname: '/assets/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'admin.jscoupling.com',
+        pathname: '/assets/**',
+      },
     ],
   },
 };

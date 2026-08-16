@@ -1,17 +1,28 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import type { Locale } from '@/lib/constants/site';
+import type { ProductCategory } from '@/features/products/types';
+import { buildLocalizedProductCategoryPath } from '@/features/products/api';
 import { getDictionary } from '@/lib/i18n/locale';
 import { Container } from '@/components/ui/container';
 import { LocaleSwitcher } from '@/components/layout/locale-switcher';
 import type { SiteSettings } from '@/features/site/api';
 
-export function SiteHeader({ locale, settings }: { locale: Locale; settings: SiteSettings }) {
+export function SiteHeader({
+  locale,
+  settings,
+  productCategories = [],
+}: {
+  locale: Locale;
+  settings: SiteSettings;
+  productCategories?: ProductCategory[];
+}) {
   const dict = getDictionary(locale);
 
   const nav = [
     { href: `/${locale}`, label: dict.nav.home },
+    { href: `/${locale}/products`, label: dict.nav.products, type: 'products' as const },
     { href: `/${locale}/about`, label: dict.nav.about },
-    { href: `/${locale}/products`, label: dict.nav.products },
     { href: `/${locale}/industries`, label: dict.nav.industries },
     { href: `/${locale}/cases`, label: dict.nav.cases },
     { href: `/${locale}/blog`, label: dict.nav.blog },
@@ -25,15 +36,35 @@ export function SiteHeader({ locale, settings }: { locale: Locale; settings: Sit
           <Link href={`/${locale}`} className="site-brand">
             {settings.logoUrl ? (
               <span className="site-brand__logo">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={settings.logoUrl} alt={settings.siteName} />
+                <Image src={settings.logoUrl} alt={settings.siteName} fill sizes="42px" />
               </span>
             ) : null}
             <strong>{settings.siteName || dict.common.tagline}</strong>
           </Link>
           <nav className="site-nav" aria-label="Main navigation">
             {nav.map((item) => (
-              <Link key={item.href} href={item.href}>{item.label}</Link>
+              item.type === 'products' ? (
+                <div className="site-nav__group" key={item.href}>
+                  <Link href={item.href}>{item.label}</Link>
+                  {productCategories.length ? (
+                    <div className="site-nav__dropdown">
+                      <div className="site-nav__dropdown-panel">
+                        {productCategories.map((category) => (
+                          <Link
+                            className="site-nav__dropdown-link"
+                            href={buildLocalizedProductCategoryPath(locale, category.id)}
+                            key={category.id}
+                          >
+                            {category.label}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  ) : null}
+                </div>
+              ) : (
+                <Link key={item.href} href={item.href}>{item.label}</Link>
+              )
             ))}
             <Link className="button button--primary" href={`/${locale}/quote`}>
               {dict.common.getQuote}

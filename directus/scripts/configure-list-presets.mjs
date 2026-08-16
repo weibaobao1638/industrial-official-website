@@ -54,6 +54,7 @@ async function upsertPreset(user, collection, preset) {
 }
 
 const collectionMetaUpdates = {
+  home_banners: { sort_field: 'sort_order', archive_field: 'status', archive_value: 'archived', unarchive_value: 'draft' },
   products: { sort_field: 'sort_order', archive_field: 'status', archive_value: 'archived', unarchive_value: 'draft' },
   product_categories: { sort_field: 'sort_order', archive_field: 'status', archive_value: 'archived', unarchive_value: 'draft' },
   industries: { sort_field: 'sort_order', archive_field: 'status', archive_value: 'archived', unarchive_value: 'draft' },
@@ -65,6 +66,11 @@ const collectionMetaUpdates = {
 };
 
 const presets = {
+  home_banners: {
+    layout: 'tabular',
+    layout_query: { tabular: { sort: ['sort_order', 'id'], fields: ['image', 'status', 'sort_order'], page: 1 } },
+    layout_options: { tabular: { widths: { image: 180, status: 120, sort_order: 100 } } },
+  },
   products: {
     layout: 'tabular',
     layout_query: { tabular: { sort: ['sort_order', 'name_zh'], fields: ['name_zh', 'category_level_1', 'is_featured', 'status', 'sort_order'], page: 1 } },
@@ -72,8 +78,25 @@ const presets = {
   },
   product_categories: {
     layout: 'tabular',
-    layout_query: { tabular: { sort: ['sort_order', 'name_zh'], fields: ['name_zh', 'slug_en', 'status', 'sort_order'], page: 1 } },
-    layout_options: { tabular: { widths: { name_zh: 260, slug_en: 220, status: 120, sort_order: 100 } } },
+    layout_query: {
+      tabular: {
+        sort: ['parent_id', 'sort_order', 'name_zh'],
+        fields: ['parent_id', 'name_zh', 'name_en', 'slug_en', 'status', 'sort_order'],
+        page: 1,
+      },
+    },
+    layout_options: {
+      tabular: {
+        widths: {
+          parent_id: 220,
+          name_zh: 240,
+          name_en: 260,
+          slug_en: 220,
+          status: 120,
+          sort_order: 100,
+        },
+      },
+    },
   },
   industries: {
     layout: 'tabular',

@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { SiteHeader } from '@/components/layout/site-header';
 import { SiteFooter } from '@/components/layout/site-footer';
+import { getProductCategoryTree } from '@/features/products/api';
 import { getSiteSettings } from '@/features/site/api';
 import { isLocale } from '@/lib/i18n/locale';
 
@@ -51,11 +52,11 @@ export default async function LocaleLayout({
     notFound();
   }
 
-  const settings = await getSiteSettings(locale);
+  const [settings, productCategories] = await Promise.all([getSiteSettings(locale), getProductCategoryTree(locale)]);
 
   return (
     <>
-      <SiteHeader locale={locale} settings={settings} />
+      <SiteHeader locale={locale} settings={settings} productCategories={productCategories} />
       <main>{children}</main>
       <SiteFooter locale={locale} settings={settings} />
     </>

@@ -32,6 +32,7 @@ async function patchField(collection, field, meta) {
 
 const collectionMetas = {
   pages: { icon: 'article', note: '单页内容管理', display_template: '{{ page_key }} | {{ title_zh }}', translations: [{ language: 'zh-CN', translation: '页面', singular: '页面', plural: '页面' }, { language: 'en-US', translation: 'Pages', singular: 'Page', plural: 'Pages' }] },
+  home_banners: { icon: 'view_carousel', note: '首页 Banner 轮播管理', display_template: '{{ id }}', translations: [{ language: 'zh-CN', translation: '首页 Banner', singular: '首页 Banner', plural: '首页 Banner' }, { language: 'en-US', translation: 'Home Banners', singular: 'Home Banner', plural: 'Home Banners' }] },
   products: { icon: 'inventory_2', note: '产品内容管理', display_template: '{{ name_zh }}', translations: [{ language: 'zh-CN', translation: '产品', singular: '产品', plural: '产品' }, { language: 'en-US', translation: 'Products', singular: 'Product', plural: 'Products' }] },
   product_categories: { icon: 'category', note: '产品分类管理', display_template: '{{ name_zh }}', translations: [{ language: 'zh-CN', translation: '产品分类', singular: '产品分类', plural: '产品分类' }, { language: 'en-US', translation: 'Product Categories', singular: 'Product Category', plural: 'Product Categories' }] },
   industries: { icon: 'apartment', note: '行业方案管理', display_template: '{{ name_zh }}', translations: [{ language: 'zh-CN', translation: '行业方案', singular: '行业方案', plural: '行业方案' }, { language: 'en-US', translation: 'Industries', singular: 'Industry', plural: 'Industries' }] },
@@ -60,6 +61,11 @@ const fieldMetas = {
     slug_zh: { width: 'half', translations: [{ language: 'zh-CN', translation: '中文链接标识' }] },
     slug_en: { width: 'half', translations: [{ language: 'zh-CN', translation: '英文链接标识' }] },
     status: { width: 'half', translations: [{ language: 'zh-CN', translation: '发布状态' }] }
+  },
+  home_banners: {
+    image: { interface: 'file', display: 'image', width: 'full', note: '首页 Banner 图片上传字段', translations: [{ language: 'zh-CN', translation: 'Banner 图片' }] },
+    status: { width: 'half', translations: [{ language: 'zh-CN', translation: '发布状态' }] },
+    sort_order: { width: 'half', translations: [{ language: 'zh-CN', translation: '排序值' }] }
   },
   products: {
     product_code: { width: 'half', note: '内部产品编号', translations: [{ language: 'zh-CN', translation: '产品编号' }] },
