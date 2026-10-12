@@ -280,25 +280,6 @@ select {
   display: block;
 }
 
-.hero {
-  padding: 84px 0 48px;
-}
-
-.hero__wrap {
-  display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  gap: 24px;
-  align-items: center;
-}
-
-.hero__panel {
-  background: linear-gradient(135deg, #082540, #0b5cab);
-  color: white;
-  border-radius: var(--radius-lg);
-  padding: 28px;
-  min-height: 320px;
-}
-
 .home-banner-section {
   padding: 0 0 28px;
 }
@@ -712,19 +693,6 @@ select {
   border-radius: 12px;
 }
 
-.kpi-list {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 16px;
-}
-
-.kpi-item {
-  padding: 18px;
-  background: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: var(--radius-md);
-}
-
 @media (max-width: 1200px) {
   .grid--5 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -736,8 +704,6 @@ select {
   .grid--2,
   .grid--5,
   .product-catalog-layout,
-  .hero__wrap,
-  .kpi-list,
   .cta-banner,
   .spec-grid,
   .about-grid {

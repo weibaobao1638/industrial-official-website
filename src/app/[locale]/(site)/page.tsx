@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { AboutImageSlider } from '@/components/home/about-image-slider';
 import { HomeBannerCarousel } from '@/components/home/home-banner-carousel';
-import { HeroSection } from '@/components/home/hero-section';
 import { RichText } from '@/components/ui/rich-text';
 import { ContentCard } from '@/components/ui/content-card';
 import { Section } from '@/components/ui/section';
@@ -65,7 +64,6 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   return (
     <>
       <HomeBannerCarousel items={homeBanners} locale={locale} />
-      <HeroSection locale={locale} page={homePage} />
 
       {homePage?.content ? (
         <Section

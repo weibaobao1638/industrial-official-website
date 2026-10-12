@@ -43,8 +43,9 @@ export function SiteHeader({
                   height={settings.logoHeight ?? 42}
                 />
               </span>
-            ) : null}
-            <strong>{settings.siteName || dict.common.tagline}</strong>
+            ) : (
+              <strong>{settings.siteName || dict.common.tagline}</strong>
+            )}
           </Link>
           <nav className="site-nav" aria-label="Main navigation">
             {nav.map((item) => (
