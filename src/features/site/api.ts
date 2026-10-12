@@ -9,6 +9,7 @@ export type SiteSettings = {
   companyName: string;
   logoUrl: string | null;
   faviconUrl: string | null;
+  aboutImages: string[];
   email: string;
   phone: string;
   whatsapp: string;
@@ -26,6 +27,9 @@ const SITE_SETTINGS_FIELDS = [
   'company_name_en',
   'logo.id',
   'favicon.id',
+  'about_image_1.id',
+  'about_image_2.id',
+  'about_image_3.id',
   'email',
   'phone',
   'whatsapp',
@@ -44,6 +48,7 @@ const fallbackSettings: Record<Locale, SiteSettings> = {
     companyName: '工业企业有限公司',
     logoUrl: null,
     faviconUrl: null,
+    aboutImages: [],
     email: 'sales@example.com',
     phone: '+86-000-0000-0000',
     whatsapp: '+86-000-0000-0000',
@@ -57,6 +62,7 @@ const fallbackSettings: Record<Locale, SiteSettings> = {
     companyName: 'Industrial Company Ltd.',
     logoUrl: null,
     faviconUrl: null,
+    aboutImages: [],
     email: 'sales@example.com',
     phone: '+86-000-0000-0000',
     whatsapp: '+86-000-0000-0000',
@@ -72,12 +78,16 @@ function mapSiteSettings(item: DirectusSiteSettingsItem, locale: Locale): SiteSe
     typeof item.logo === 'string' ? getDirectusAssetUrl(item.logo) : getDirectusAssetUrl(item.logo?.id);
   const faviconUrl =
     typeof item.favicon === 'string' ? getDirectusAssetUrl(item.favicon) : getDirectusAssetUrl(item.favicon?.id);
+  const aboutImages = [item.about_image_1, item.about_image_2, item.about_image_3]
+    .map((field) => getDirectusAssetUrl(typeof field === 'string' ? field : field?.id))
+    .filter((url): url is string => Boolean(url));
 
   return {
     siteName: getLocalizedField(item, locale, 'site_name'),
     companyName: getLocalizedField(item, locale, 'company_name'),
     logoUrl,
     faviconUrl,
+    aboutImages,
     email: item.email || '',
     phone: item.phone || '',
     whatsapp: item.whatsapp || '',

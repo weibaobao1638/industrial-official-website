@@ -68,6 +68,9 @@ for (const [collection, field] of [
   ['certifications', 'image'],
   ['site_settings', 'logo'],
   ['site_settings', 'favicon'],
+  ['site_settings', 'about_image_1'],
+  ['site_settings', 'about_image_2'],
+  ['site_settings', 'about_image_3'],
   ['inquiries', 'attachment'],
 ]) {
   await ensureRelation(collection, field);

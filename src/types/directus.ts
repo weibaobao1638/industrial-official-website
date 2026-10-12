@@ -144,6 +144,9 @@ export type DirectusSiteSettingsItem = {
   company_name_en?: string;
   logo?: { id?: string } | string | null;
   favicon?: { id?: string } | string | null;
+  about_image_1?: { id?: string } | string | null;
+  about_image_2?: { id?: string } | string | null;
+  about_image_3?: { id?: string } | string | null;
   email?: string;
   phone?: string;
   whatsapp?: string;

@@ -1,5 +1,5 @@
-import Image from 'next/image';
 import Link from 'next/link';
+import { AboutImageSlider } from '@/components/home/about-image-slider';
 import { HomeBannerCarousel } from '@/components/home/home-banner-carousel';
 import { HeroSection } from '@/components/home/hero-section';
 import { RichText } from '@/components/ui/rich-text';
@@ -69,31 +69,20 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
 
       {homePage?.content ? (
         <Section
-          eyebrow={locale === 'zh' ? '品牌概览' : 'Company Snapshot'}
-          title={locale === 'zh' ? '公司与网站概览' : 'Company & Website Overview'}
-          description={locale === 'zh' ? '这个区域适合呈现品牌定位、主营方向和基础联系信息。' : 'Use this area to present positioning, core business scope, and base contact information.'}
+          eyebrow={locale === 'zh' ? '关于我们' : 'WHO WE ARE'}
+          title={homePage.title}
+          description={homePage.subtitle}
         >
-          <div className="summary-grid">
-            <div className="card">
+          <div className={`about-grid${settings.aboutImages.length ? '' : ' about-grid--text-only'}`}>
+            <AboutImageSlider images={settings.aboutImages} locale={locale} />
+            <div className="about-body stack-md">
               <RichText content={homePage.content} />
-            </div>
-            <div className="card stack-md">
-              {settings.logoUrl ? (
-                <div className="company-logo-panel">
-                  <Image src={settings.logoUrl} alt={settings.siteName} fill sizes="160px" />
-                </div>
-              ) : null}
-              <h3 className="h3">{settings.companyName || settings.siteName}</h3>
-              {settings.address ? <p className="text-muted">{settings.address}</p> : null}
-              {settings.email ? <p className="text-muted">Email: {settings.email}</p> : null}
-              {settings.phone ? <p className="text-muted">{locale === 'zh' ? '电话' : 'Phone'}: {settings.phone}</p> : null}
-              {settings.whatsapp ? <p className="text-muted">WhatsApp: {settings.whatsapp}</p> : null}
               <div className="page-hero__actions">
-                <Link className="button button--primary" href={`/${locale}/quote`}>
-                  {locale === 'zh' ? '立即询价' : 'Get Quote'}
+                <Link className="button button--primary" href={`/${locale}/about`}>
+                  {locale === 'zh' ? '了解更多' : 'Read More'}
                 </Link>
                 <Link className="button button--ghost" href={`/${locale}/contact`}>
-                  {locale === 'zh' ? '联系销售' : 'Talk to Sales'}
+                  {locale === 'zh' ? '联系我们' : 'Contact Us'}
                 </Link>
               </div>
             </div>

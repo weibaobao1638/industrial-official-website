@@ -9,8 +9,8 @@ const JSON_FIELDS = new Set(['gallery', 'spec_table', 'social_links']);
 const BOOL_FIELDS = new Set(['is_featured', 'is_new', 'is_hot', 'indexable']);
 const INT_FIELDS = new Set(['sort_order']);
 const DATETIME_FIELDS = new Set(['published_at', 'valid_until', 'created_at']);
-const UUID_FIELDS = new Set(['cover_image', 'file', 'image', 'logo', 'favicon', 'attachment']);
-const IMAGE_FIELDS = new Set(['cover_image', 'image', 'logo', 'favicon']);
+const UUID_FIELDS = new Set(['cover_image', 'file', 'image', 'logo', 'favicon', 'attachment', 'about_image_1', 'about_image_2', 'about_image_3']);
+const IMAGE_FIELDS = new Set(['cover_image', 'image', 'logo', 'favicon', 'about_image_1', 'about_image_2', 'about_image_3']);
 
 function inferType(field) {
   if (UUID_FIELDS.has(field)) return 'uuid';
