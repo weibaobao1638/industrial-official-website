@@ -8,10 +8,8 @@ import { Section } from '@/components/ui/section';
 import { getHomeBanners } from '@/features/home-banners/api';
 import { buildLocalizedProductDetailPath, getFeaturedProducts } from '@/features/products/api';
 import { getIndustries } from '@/features/industries/api';
-import { getCaseList } from '@/features/cases/api';
 import { getBlogPosts } from '@/features/blog/api';
 import { getCertifications } from '@/features/certifications/api';
-import { getDownloads } from '@/features/downloads/api';
 import { getPageContent } from '@/features/pages/api';
 import { getHomepageStats, getSiteSettings } from '@/features/site/api';
 import { CtaBanner } from '@/components/ui/cta-banner';
@@ -43,29 +41,23 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           kpis: '核心指标',
           products: '产品',
           solutions: '方案',
-          cases: '案例',
           certifications: '认证',
-          downloads: '下载',
           insights: '内容',
         }
       : {
           kpis: 'KPIs',
           products: 'Products',
           solutions: 'Solutions',
-          cases: 'Cases',
           certifications: 'Certifications',
-          downloads: 'Downloads',
           insights: 'Insights',
         };
   const settings = await getSiteSettings(locale);
-  const [products, industries, cases, posts, stats, certifications, downloads, homePage, homeBanners] = await Promise.all([
-    getFeaturedProducts(locale),
+  const [products, industries, posts, stats, certifications, homePage, homeBanners] = await Promise.all([
+    getFeaturedProducts(locale, 10),
     getIndustries(locale),
-    getCaseList(locale),
     getBlogPosts(locale),
     getHomepageStats(locale),
     getCertifications(locale),
-    getDownloads(locale),
     getPageContent(locale, 'home'),
     getHomeBanners(locale),
   ]);
@@ -121,7 +113,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       </Section>
 
       <Section eyebrow={labels.products} title={dict.common.featuredProducts}>
-        <div className="grid grid--3">
+        <div className="grid grid--5">
           {products.map((product) => (
             <ContentCard
               key={product.id}
@@ -150,18 +142,6 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         </div>
       </Section>
 
-      <Section eyebrow={labels.cases} title={locale === 'zh' ? '项目案例' : 'Case Studies'}>
-        <div className="grid grid--2">
-          {cases.map((item) => (
-            <article className="card" key={item.slug}>
-              <div className="eyebrow">{item.country}</div>
-              <h3 className="h3">{item.title}</h3>
-              <p className="text-muted">{item.summary}</p>
-            </article>
-          ))}
-        </div>
-      </Section>
-
       <Section eyebrow={labels.certifications} title={locale === 'zh' ? '认证资质' : 'Certifications'}>
         <div className="grid grid--2">
           {certifications.slice(0, 2).map((item) => (
@@ -171,22 +151,6 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
               title={item.title}
               description={item.description}
               imageUrl={item.imageUrl}
-            />
-          ))}
-        </div>
-      </Section>
-
-      <Section eyebrow={labels.downloads} title={locale === 'zh' ? '下载资料' : 'Downloads'}>
-        <div className="grid grid--2">
-          {downloads.slice(0, 2).map((item) => (
-            <ContentCard
-              key={item.id}
-              eyebrow={item.fileType}
-              title={item.title}
-              description={item.description}
-              href={item.fileUrl || undefined}
-              external
-              ctaLabel={item.fileUrl ? (locale === 'zh' ? '下载' : 'Download') : undefined}
             />
           ))}
         </div>

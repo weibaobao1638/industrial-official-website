@@ -330,9 +330,9 @@ export async function getProductCategoryTree(locale: Locale): Promise<ProductCat
   return roots;
 }
 
-export async function getFeaturedProducts(locale: Locale): Promise<ProductCard[]> {
+export async function getFeaturedProducts(locale: Locale, limit = 3): Promise<ProductCard[]> {
   const featuredItems = await fetchProducts({
-    limit: 3,
+    limit,
     filter: {
       status: { _eq: 'published' },
       is_featured: { _eq: true },
@@ -343,7 +343,7 @@ export async function getFeaturedProducts(locale: Locale): Promise<ProductCard[]
     return featuredItems.map((item) => mapDirectusProductCard(item, locale));
   }
 
-  const items = await fetchProducts({ limit: 3 });
+  const items = await fetchProducts({ limit });
   return items?.map((item) => mapDirectusProductCard(item, locale)) ?? [];
 }
 
