@@ -8,6 +8,8 @@ export type SiteSettings = {
   siteName: string;
   companyName: string;
   logoUrl: string | null;
+  logoWidth: number | null;
+  logoHeight: number | null;
   faviconUrl: string | null;
   aboutImages: string[];
   email: string;
@@ -26,6 +28,8 @@ const SITE_SETTINGS_FIELDS = [
   'company_name_zh',
   'company_name_en',
   'logo.id',
+  'logo.width',
+  'logo.height',
   'favicon.id',
   'about_image_1.id',
   'about_image_2.id',
@@ -47,6 +51,8 @@ const fallbackSettings: Record<Locale, SiteSettings> = {
     siteName: '工业企业官网',
     companyName: '工业企业有限公司',
     logoUrl: null,
+    logoWidth: null,
+    logoHeight: null,
     faviconUrl: null,
     aboutImages: [],
     email: 'sales@example.com',
@@ -61,6 +67,8 @@ const fallbackSettings: Record<Locale, SiteSettings> = {
     siteName: 'Industrial Official Website',
     companyName: 'Industrial Company Ltd.',
     logoUrl: null,
+    logoWidth: null,
+    logoHeight: null,
     faviconUrl: null,
     aboutImages: [],
     email: 'sales@example.com',
@@ -76,6 +84,8 @@ const fallbackSettings: Record<Locale, SiteSettings> = {
 function mapSiteSettings(item: DirectusSiteSettingsItem, locale: Locale): SiteSettings {
   const logoUrl =
     typeof item.logo === 'string' ? getDirectusAssetUrl(item.logo) : getDirectusAssetUrl(item.logo?.id);
+  const logoWidth = typeof item.logo === 'string' ? null : item.logo?.width ?? null;
+  const logoHeight = typeof item.logo === 'string' ? null : item.logo?.height ?? null;
   const faviconUrl =
     typeof item.favicon === 'string' ? getDirectusAssetUrl(item.favicon) : getDirectusAssetUrl(item.favicon?.id);
   const aboutImages = [item.about_image_1, item.about_image_2, item.about_image_3]
@@ -86,6 +96,8 @@ function mapSiteSettings(item: DirectusSiteSettingsItem, locale: Locale): SiteSe
     siteName: getLocalizedField(item, locale, 'site_name'),
     companyName: getLocalizedField(item, locale, 'company_name'),
     logoUrl,
+    logoWidth,
+    logoHeight,
     faviconUrl,
     aboutImages,
     email: item.email || '',

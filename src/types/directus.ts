@@ -142,7 +142,7 @@ export type DirectusSiteSettingsItem = {
   site_name_en?: string;
   company_name_zh?: string;
   company_name_en?: string;
-  logo?: { id?: string } | string | null;
+  logo?: { id?: string; width?: number; height?: number } | string | null;
   favicon?: { id?: string } | string | null;
   about_image_1?: { id?: string } | string | null;
   about_image_2?: { id?: string } | string | null;

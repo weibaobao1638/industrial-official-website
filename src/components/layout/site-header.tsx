@@ -36,7 +36,12 @@ export function SiteHeader({
           <Link href={`/${locale}`} className="site-brand">
             {settings.logoUrl ? (
               <span className="site-brand__logo">
-                <Image src={settings.logoUrl} alt={settings.siteName} fill sizes="42px" />
+                <Image
+                  src={settings.logoUrl}
+                  alt={settings.siteName}
+                  width={settings.logoWidth ?? 120}
+                  height={settings.logoHeight ?? 42}
+                />
               </span>
             ) : null}
             <strong>{settings.siteName || dict.common.tagline}</strong>
