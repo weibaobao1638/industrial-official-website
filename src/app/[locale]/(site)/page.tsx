@@ -90,17 +90,6 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         </Section>
       ) : null}
 
-      <Section eyebrow={labels.kpis} title={locale === 'zh' ? '核心指标' : 'Key Figures'}>
-        <div className="grid grid--3">
-          {stats.map((item) => (
-            <div className="card" key={item.label}>
-              <div className="eyebrow">{item.label}</div>
-              <h3 className="h2">{item.value}</h3>
-            </div>
-          ))}
-        </div>
-      </Section>
-
       <Section eyebrow={labels.products} title={dict.common.featuredProducts}>
         <div className="grid grid--5">
           {products.map((product) => (
@@ -115,6 +104,17 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
               href={buildLocalizedProductDetailPath(locale, product)}
               ctaLabel={dict.common.learnMore}
             />
+          ))}
+        </div>
+      </Section>
+
+      <Section eyebrow={labels.kpis} title={locale === 'zh' ? '核心指标' : 'Key Figures'}>
+        <div className="grid grid--3">
+          {stats.map((item) => (
+            <div className="card" key={item.label}>
+              <div className="eyebrow">{item.label}</div>
+              <h3 className="h2">{item.value}</h3>
+            </div>
           ))}
         </div>
       </Section>
